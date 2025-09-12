@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chúc mừng sinh nhật!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="instructions">
+            Nhấn các phím theo thứ tự: <br>
+            <span class="note">C4</span> - <span class="note">C4</span> - <span class="note">D4</span> - <span class="note">C4</span> - <span class="note">F4</span> - <span class="note">E4</span>
+        </h1>
+        
+        <div class="piano">
+            <div class="key white-key" data-note="c4"></div>
+            <div class="key white-key" data-note="d4"></div>
+            <div class="key white-key" data-note="e4"></div>
+            <div class="key white-key" data-note="f4"></div>
+            <div class="key white-key" data-note="g4"></div>
+            <div class="key white-key" data-note="a4"></div>
+            <div class="key white-key" data-note="b4"></div>
+            
+            <div class="key black-key" data-note="c-sharp"></div>
+            <div class="key black-key" data-note="d-sharp"></div>
+            <div class="key black-key" data-note="f-sharp"></div>
+            <div class="key black-key" data-note="g-sharp"></div>
+            <div class="key black-key" data-note="a-sharp"></div>
+        </div>
+    </div>
+    
+    <div id="message" class="message-box">
+        <h2>Chúc mừng sinh nhật bạn của tớ!</h2>
+        <p>Gửi đến cậu những lời chúc tốt đẹp nhất. Mong rằng cậu sẽ luôn hạnh phúc, thành công và có thật nhiều niềm vui trong cuộc sống. Cảm ơn vì đã luôn ở bên cạnh tớ. Dù khoảng cách có xa, tình bạn của chúng ta vẫn luôn bền chặt. Yêu cậu!</p>
+    </div>
+
+    <audio id="c4-sound" src="sounds/c4.mp3"></audio>
+    <audio id="d4-sound" src="sounds/d4.mp3"></audio>
+    <audio id="e4-sound" src="sounds/e4.mp3"></audio>
+    <audio id="f4-sound" src="sounds/f4.mp3"></audio>
+    <audio id="g4-sound" src="sounds/g4.mp3"></audio>
+    <audio id="a4-sound" src="sounds/a4.mp3"></audio>
+    <audio id="b4-sound" src="sounds/b4.mp3"></audio>
+    <audio id="c-sharp-sound" src="sounds/c-sharp.mp3"></audio>
+    <audio id="d-sharp-sound" src="sounds/d-sharp.mp3"></audio>
+    <audio id="f-sharp-sound" src="sounds/f-sharp.mp3"></audio>
+    <audio id="g-sharp-sound" src="sounds/g-sharp.mp3"></audio>
+    <audio id="a-sharp-sound" src="sounds/a-sharp.mp3"></audio>
+    
+    <audio id="full-song" src="sounds/happy_birthday_full.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
