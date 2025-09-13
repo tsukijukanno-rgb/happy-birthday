@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let userSequence = [];
     let game1Completed = false;
 
+    const candleContainer = document.getElementById('candle-game');
+    const qrContainer = document.getElementById('video-qr-container');
+    const cakeImage = document.getElementById('cake-image');
+    let candlesBlownOut = 0; // Thêm biến đếm số lần thổi nến
+
     // --- LOGIC TRÒ CHƠI KÉO THẢ (Đã tối ưu cho cả chuột và cảm ứng) ---
     let draggedPiece = null;
     let offsetX, offsetY;
@@ -83,8 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const totalSolvedPieces = document.querySelectorAll('.puzzle-piece.solved').length;
             if (totalSolvedPieces === puzzlePieces.length) {
+                // Kích hoạt GIAI ĐOẠN MỚI: Thổi nến
                 setTimeout(() => {
-                    alert('Ùi khó zị cũm nàm đc. Đỉnh zị chòi');
+                    puzzleContainer.style.display = 'none';
+                    candleContainer.style.display = 'block';
                 }, 500);
             }
             draggedPiece = null;
@@ -164,7 +171,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+    // --- LOGIC TRÒ CHƠI THỔI NẾN (có thêm tỉ lệ thành công) ---
+    let isFirstBlow = true; // Biến mới để kiểm tra lần thổi đầu tiên
+    candleContainer.addEventListener('click', () => {
+        // Hiển thị thông báo lần đầu tiên
+        if (isFirstBlow) {
+            alert('Thổi tắt đủ 20 cây nến thì mới có quà nha!');
+            isFirstBlow = false;
+        }
+
+        // Tỉ lệ thổi nến thành công (80%)
+        const successRate = 0.8;
+        const isSuccess = Math.random() < successRate;
+
+        if (isSuccess) {
+            candlesBlownOut++;
+            if (candlesBlownOut < 20) {
+                alert(`Bà thổi được ${candlesBlownOut} cây gòi nè. Típ i típ i!`);
+            } else {
+                alert('YEEEEEEE! Nến tắt hết ròi nè! Mau quét mã lấy quà đi nà!');
+                candleContainer.style.display = 'none';
+                qrContainer.style.display = 'block';
+            }
+        } else {
+            alert('Ôi không! Gió quá mạnh, nến vẫn chưa tắt. Hãy thử lại!');
+        }
+    });
 });
-
-
-
