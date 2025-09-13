@@ -90,3 +90,39 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     margin-top: 20px;
 }
+
+.puzzle-container {
+    display: none; /* Ẩn ban đầu */
+    width: 600px; /* Giữ nguyên hoặc điều chỉnh tùy ý */
+    height: 400px; /* Giữ nguyên hoặc điều chỉnh tùy ý */
+    border: 2px solid #fff;
+    position: relative;
+    background-image: url('puzzle_background.png'); /* Đảm bảo tên file và đường dẫn đúng */
+    background-size: cover; /* Hiển thị toàn bộ ảnh */
+    background-repeat: no-repeat; /* Không lặp lại ảnh */
+    background-position: center; /* Căn giữa ảnh */
+}
+
+/* Thêm thuộc tính background-image cho từng mảnh ghép */
+.puzzle-piece {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    cursor: grab;
+    border: 1px solid #333;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    transition: box-shadow 0.2s;
+
+    background-image: url('puzzle_background.png'); /* Cần thêm dòng này */
+    background-size: 600px 400px; /* Kích thước ảnh nền hoàn chỉnh */
+}
+
+.puzzle-piece:active {
+    cursor: grabbing;
+}
+
+.puzzle-piece.solved {
+    cursor: default;
+    box-shadow: none;
+    z-index: 10;
+}
