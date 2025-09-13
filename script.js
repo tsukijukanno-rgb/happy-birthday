@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalSolvedPieces = document.querySelectorAll('.puzzle-piece.solved').length;
             if (totalSolvedPieces === puzzlePieces.length) {
                 setTimeout(() => {
-                    alert('Tuyệt vời! Bạn đã hoàn thành trò chơi xếp hình!');
+                    alert('Ghê vữ ta. Trò khó dị mà làm cái rẹt là xong dị nè.');
                 }, 500);
             }
             draggedPiece = null;
@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         instructionsElement.style.display = 'none';
                         game1Completed = true;
                     } else {
-                        alert('Sai rồi! Thử lại nhé.');
+                        alert('Sai rồi! KÉM! ÍU! NON!');
                         userSequence = [];
                     }
                 }
@@ -128,3 +128,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
