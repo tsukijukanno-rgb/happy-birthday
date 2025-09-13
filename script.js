@@ -117,41 +117,54 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     keys.forEach(key => {
-        key.addEventListener('click', () => {
-            const note = key.getAttribute('data-note');
-
-            if (!game1Completed) {
-                const audio = document.getElementById(note.replace('#', '-sharp') + '-sound');
-                if (audio) {
-                    audio.currentTime = 0;
-                    audio.play();
-                }
-
-                userSequence.push(note);
-                
-                if (userSequence.length === happyBirthdaySequence.length) {
-                    const isCorrect = userSequence.every((value, index) => value === happyBirthdaySequence[index]);
-                    
-                    if (isCorrect) {
-                        fullSong.play();
-                        messageBox.style.display = 'block';
-                        instructionsElement.style.display = 'none';
-                        game1Completed = true;
-                    } else {
-                        alert('Có dị cx sai. Dì mà kém thía !');
-                        userSequence = [];
-                    }
-                }
-            } else {
-                if (note === 'c4' || note === 'd4') {
-                    pianoElement.style.display = 'none';
-                    messageBox.style.display = 'none';
-                    puzzleContainer.style.display = 'block';
-                    createPuzzlePieces();
-                }
-            }
+        // Sự kiện cho máy tính
+        key.addEventListener('click', (e) => {
+            handleKeyPress(e.target.closest('.key'));
+        });
+    
+        // Sự kiện cho điện thoại (khắc phục độ trễ)
+        key.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Ngăn trình duyệt phóng to/thu nhỏ
+            handleKeyPress(e.target.closest('.key'));
         });
     });
+
+    function handleKeyPress(key) {
+        if (!key) return; // Đảm bảo phím được chọn là hợp lệ
+
+        const note = key.getAttribute('data-note');
+        if (!game1Completed) {
+            const audio = document.getElementById(note.replace('#', '-sharp') + '-sound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play();
+            }
+
+            userSequence.push(note);
+        
+            if (userSequence.length === happyBirthdaySequence.length) {
+                const isCorrect = userSequence.every((value, index) => value === happyBirthdaySequence[index]);
+            
+                if (isCorrect) {
+                    fullSong.play();
+                    messageBox.style.display = 'block';
+                    instructionsElement.style.display = 'none';
+                    game1Completed = true;
+                } else {
+                    alert('Có dị cx sai. Dì mà kém thía !');
+                    userSequence = [];
+                }
+            }
+        } else {
+            if (note === 'c4' || note === 'd4') {
+                pianoElement.style.display = 'none';
+                messageBox.style.display = 'none';
+                puzzleContainer.style.display = 'block';
+                createPuzzlePieces();
+            }
+        }
+    }
 });
+
 
 
