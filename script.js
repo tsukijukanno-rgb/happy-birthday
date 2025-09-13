@@ -88,11 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const totalSolvedPieces = document.querySelectorAll('.puzzle-piece.solved').length;
             if (totalSolvedPieces === puzzlePieces.length) {
-                // Kích hoạt GIAI ĐOẠN MỚI: Thổi nến
+                // Thêm một đoạn thông báo khen thưởng
+                alert('Wow! Bạn đỉnh thật đó! Ghép hình thành công rồi nè!');
+
+                // Chờ 1 giây rồi chuyển sang màn hình thổi nến
                 setTimeout(() => {
                     puzzleContainer.style.display = 'none';
                     candleContainer.style.display = 'block';
-                }, 500);
+                }, 1000); // Tăng thời gian chờ lên 1 giây để người nhận có thể đọc thông báo
             }
             draggedPiece = null;
         }
@@ -206,4 +209,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
