@@ -9,6 +9,11 @@ body {
     color: white;
     margin: 0;
 }
+html, body {
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
 
 .container {
     display: flex;
@@ -126,3 +131,4 @@ body {
     box-shadow: none;
     z-index: 10;
 }
+
