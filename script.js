@@ -12,17 +12,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let userSequence = [];
     let game1Completed = false;
 
-    // --- LOGIC TRÒ CHƠI KÉO THẢ (Đã tối ưu) ---
+    // --- LOGIC TRÒ CHƠI KÉO THẢ (Đã tối ưu cho cả chuột và cảm ứng) ---
     let draggedPiece = null;
     let offsetX, offsetY;
 
+    // Sự kiện chuột
     document.addEventListener('mousedown', (e) => {
         if (e.target.classList.contains('puzzle-piece') && !e.target.classList.contains('solved')) {
             draggedPiece = e.target;
             offsetX = e.clientX - draggedPiece.getBoundingClientRect().left;
             offsetY = e.clientY - draggedPiece.getBoundingClientRect().top;
             draggedPiece.style.zIndex = '100';
-            draggedPiece.style.transition = 'none'; // Tắt hiệu ứng chuyển đổi khi kéo
+            draggedPiece.style.transition = 'none'; 
         }
     });
 
@@ -34,10 +35,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.addEventListener('mouseup', () => {
+    // Sự kiện cảm ứng (cho điện thoại)
+    document.addEventListener('touchstart', (e) => {
+        if (e.target.classList.contains('puzzle-piece') && !e.target.classList.contains('solved')) {
+            e.preventDefault(); // Ngăn trình duyệt cuộn trang
+            draggedPiece = e.target;
+            offsetX = e.touches[0].clientX - draggedPiece.getBoundingClientRect().left;
+            offsetY = e.touches[0].clientY - draggedPiece.getBoundingClientRect().top;
+            draggedPiece.style.zIndex = '100';
+            draggedPiece.style.transition = 'none';
+        }
+    });
+
+    document.addEventListener('touchmove', (e) => {
+        if (draggedPiece) {
+            const containerRect = puzzleContainer.getBoundingClientRect();
+            draggedPiece.style.left = `${e.touches[0].clientX - offsetX - containerRect.left}px`;
+            draggedPiece.style.top = `${e.touches[0].clientY - offsetY - containerRect.top}px`;
+        }
+    });
+
+    // Sự kiện kết thúc (dùng chung cho cả chuột và cảm ứng)
+    document.addEventListener('mouseup', handleDrop);
+    document.addEventListener('touchend', handleDrop);
+    document.addEventListener('touchcancel', handleDrop);
+
+    function handleDrop() {
         if (draggedPiece) {
             draggedPiece.style.zIndex = '1';
-            draggedPiece.style.transition = ''; // Bật lại hiệu ứng chuyển đổi
+            draggedPiece.style.transition = '';
             
             const pieceData = puzzlePieces.find(p => p.id === parseInt(draggedPiece.dataset.id));
             const rect = draggedPiece.getBoundingClientRect();
@@ -55,17 +81,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 puzzleWrongSound.play();
             }
             
-            // Kiểm tra điều kiện thắng một cách chính xác
             const totalSolvedPieces = document.querySelectorAll('.puzzle-piece.solved').length;
             if (totalSolvedPieces === puzzlePieces.length) {
                 setTimeout(() => {
-                    alert('Ghê vữ ta. Trò khó dị mà làm cái rẹt là xong dị nè.');
+                    alert('Tuyệt vời! Bạn đã hoàn thành trò chơi xếp hình!');
                 }, 500);
             }
             draggedPiece = null;
         }
-    });
-
+    }
+    
     // --- LOGIC TRÒ CHƠI CHUNG ---
     const puzzlePieces = [
         { id: 1, top: 0, left: 0, backgroundPosition: '0 0' },
@@ -77,13 +102,13 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     function createPuzzlePieces() {
-        puzzleContainer.innerHTML = ''; // Dọn dẹp mảnh ghép cũ nếu có
+        puzzleContainer.innerHTML = '';
         puzzlePieces.forEach(pieceData => {
             const piece = document.createElement('div');
             piece.classList.add('puzzle-piece');
             piece.dataset.id = pieceData.id;
             
-            piece.style.top = `${Math.random() * 150}px`; // Đặt vị trí ngẫu nhiên
+            piece.style.top = `${Math.random() * 150}px`;
             piece.style.left = `${Math.random() * 300}px`;
             
             piece.style.backgroundPosition = pieceData.backgroundPosition;
@@ -113,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         instructionsElement.style.display = 'none';
                         game1Completed = true;
                     } else {
-                        alert('Sai rồi! KÉM! ÍU! NON!');
+                        alert('Sai rồi! Thử lại nhé.');
                         userSequence = [];
                     }
                 }
@@ -128,4 +153,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
