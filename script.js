@@ -172,18 +172,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     // --- LOGIC TRÒ CHƠI THỔI NẾN (có thêm tỉ lệ thành công) ---
-    let isFirstBlow = true; // Biến mới để kiểm tra lần thổi đầu tiên
+    let isFirstBlow = true;
     candleContainer.addEventListener('click', () => {
+        handleCandleBlow();
+    });
+    candleContainer.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Ngăn cuộn trang trên điện thoại
+        handleCandleBlow();
+    });
+    
+    function handleCandleBlow() {
         // Hiển thị thông báo lần đầu tiên
         if (isFirstBlow) {
             alert('Thổi tắt đủ 20 cây nến thì mới có quà nha!');
             isFirstBlow = false;
         }
-
+    
         // Tỉ lệ thổi nến thành công (80%)
         const successRate = 0.8;
         const isSuccess = Math.random() < successRate;
-
+    
         if (isSuccess) {
             candlesBlownOut++;
             if (candlesBlownOut < 20) {
@@ -196,5 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             alert('Ôi không! Gió quá mạnh, nến vẫn chưa tắt. Hãy thử lại!');
         }
-    });
+    }
 });
+
