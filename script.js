@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const totalSolvedPieces = document.querySelectorAll('.puzzle-piece.solved').length;
             if (totalSolvedPieces === puzzlePieces.length) {
                 // Thêm một đoạn thông báo khen thưởng
-                alert('Wow! Bạn đỉnh thật đó! Ghép hình thành công rồi nè!');
+                alert('Người ta thiết kế khó zị mà cũm giải đc!');
 
                 // Chờ 1 giây rồi chuyển sang màn hình thổi nến
                 setTimeout(() => {
@@ -209,5 +209,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 });
+
 
 
